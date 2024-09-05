@@ -16,13 +16,15 @@ import lombok.Setter;
  */
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter 
+@Setter 
 public class SampleJavaProject implements Runnable {
 
     /** The delay between printed messages. */
     private static final long PRINT_DELAY = 1000L;
 
     /** The name to be printed in the output message. */
-    @Getter @Setter @NonNull
+    @NonNull
     @Parameter(names = "--name", description = "set the user's name",
                required = true)
     private String name = "world";
@@ -34,6 +36,10 @@ public class SampleJavaProject implements Runnable {
     /** Command line parameter for --help. */
     @Parameter(names = { "-h", "--help" }, description = "print help message")
     private boolean help = false;
+
+    /** Command line parameter for --help. */
+    @Parameter(names = "--verbose", description = "Enable verbose output")
+    private boolean verbose = false;
 
     /**
      * Print the "Hello, world!" string.
@@ -48,6 +54,11 @@ public class SampleJavaProject implements Runnable {
                 jc.usage();
                 return;
             }
+
+	      if (sjp.verbose) {
+	           System.out.println("Verbose output enabled.");
+        	 }
+
         } catch (ParameterException e) {
             System.err.println("error: " + e.getMessage());
             new JCommander(new SampleJavaProject()).usage();

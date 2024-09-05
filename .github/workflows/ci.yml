@@ -47,5 +47,11 @@ jobs:
         name: code-coverage-report
         path: build/reports/jacoco/test/html/**
 
-    - name: Run Deployment
-      run: java -jar build/libs/sample-java-project-V1.jar  # Adjusted to the correct JAR file name
+    - name: Build Docker image  
+      run: docker build -t sample-java-project .  
+    
+    - name: Run Docker container  
+      run: docker run -d -p 8080:8080 --name sample-java-project-container sample-java-project  
+    
+    - name: Verify Docker container is running  
+      run: docker ps 

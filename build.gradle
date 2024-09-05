@@ -67,5 +67,28 @@ jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
+        xml.destination = file("$buildDir/reports/jacoco/xml")
+        html.destination = file("$buildDir/reports/jacoco/html")
     }
 }
+
+task buildReport {
+    group = 'Reporting'
+    description = 'Generates a summary report of the build, including test and coverage results.'
+
+    doLast {
+        println '--- Build Summary ---'
+        println "Build Version: ${version}"
+        println "Source Compatibility: ${sourceCompatibility}"
+        println "Target Compatibility: ${targetCompatibility}"
+        println 'Test Results:'
+        println "HTML: file:///${buildDir}/reports/tests/index.html"
+        println "JUnit XML: file:///${buildDir}/test-results/test/TESTS-TestSuites.xml"
+        println 'Coverage Report:'
+        println "HTML: file:///${buildDir}/reports/jacoco/html/index.html"
+        println "XML: file:///${buildDir}/reports/jacoco/xml/jacocoTestReport.xml"
+    }
+}
+
+// Ensure the custom report runs after the build
+build.finalizedBy(buildReport)
