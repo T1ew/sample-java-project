@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: '**'
   pull_request:
     branches: [ master ]
 
@@ -55,3 +55,4 @@ jobs:
     
     - name: Verify Docker container is running  
       run: docker ps 
+
