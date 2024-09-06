@@ -25,8 +25,8 @@ public class SampleJavaProjectTest {
 
     @Test
     public final void testGetSet() {
-        sjp.setName("foo");
-        assertEquals("foo", sjp.getName());
+        sjp.setName("Foo");
+        assertEquals("Foo", sjp.getName());
     }
 
     @Test(expected = NullPointerException.class)
